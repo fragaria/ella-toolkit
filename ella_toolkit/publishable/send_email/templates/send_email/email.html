@@ -1,0 +1,12 @@
+Uživatel s e-mailovou adresou {{ sender }} Vám zaslal zajímavý odkaz ze serveru {{ site }}.
+
+{% if message %}
+--------------------------------------------
+Zpráva od uživatele: {{ message }}
+--------------------------------------------
+{% endif %}
+
+Adresa odkazu je: {{ url }}
+
+============================================
+{{ site.name }} - {{ site.domain }}

@@ -1,0 +1,13 @@
+nose==1.1.2
+djangosanetesting==0.5.10
+Django==1.1.1
+south>=0.7
+anyjson
+
+feedparser
+PIL
+django-tagging
+
+git+http://github.com/HonzaKral/django-threadedcomments.git#egg=threadedcomments
+git+http://github.com/ella/django-markup.git#egg=djangomarkup
+git+git://github.com/ella/ella.git#egg=ella

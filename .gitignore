@@ -1,0 +1,7 @@
+*.pyc
+.metadata
+.project
+.pydevproject
+.settings
+dist
+MANIFEST

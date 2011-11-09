@@ -1,0 +1,20 @@
+{% extends "page/base.html" %}
+
+{% block content %}
+
+    <article class="main send_mail">
+	    <h1>Odeslat <a href="{{ object.get_absolute_url }}">{{ object }}</a> e-mailem:</h1>
+
+        {% if sent %}
+            <p><strong>Děkujeme!</strong></p>
+            <p>Vaše zpráva byla úspěšně odeslána</p>
+            <a href="{% custom_url object send_by_email %}">Poslat další</a></p>
+        {% else %}
+            <form action="." method="POST">
+            	{{ form }}
+            	<input type="submit" name="submit" value="Odeslat" class="button">
+            </form>
+        {% endif %}
+    </article>
+
+{% endblock %}
