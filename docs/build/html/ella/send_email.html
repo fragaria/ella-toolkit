@@ -1,0 +1,142 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Send email about Publishable &mdash; Ella toolkit v1.0.0 documentation</title>
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Ella toolkit v1.0.0 documentation" href="../index.html" />
+    <link rel="next" title="Utilities for markup customization" href="markup.html" />
+    <link rel="prev" title="Multiple article contents" href="multiple_contents.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="markup.html" title="Utilities for markup customization"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="multiple_contents.html" title="Multiple article contents"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Ella toolkit v1.0.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="send-email-about-publishable">
+<span id="send-email"></span><h1>Send email about Publishable<a class="headerlink" href="#send-email-about-publishable" title="Permalink to this headline">¶</a></h1>
+<p>This package offers nicely wrapped custom send email action over Publishable
+models. Installation is very easy.</p>
+<div class="section" id="how-to-install">
+<h2>How to install<a class="headerlink" href="#how-to-install" title="Permalink to this headline">¶</a></h2>
+<p>Simply add <tt class="docutils literal"><span class="pre">ella_toolkit.publishable.send_email</span></tt> to your <tt class="docutils literal"><span class="pre">INSTALLED_APPS</span></tt> and make
+sure that <tt class="docutils literal"><span class="pre">ella_toolkit.publishable.send_email.urls</span></tt> is loaded. You can enforce it your <a href="#id1"><span class="problematic" id="id2">``</span></a>urls.py` in
+the following fashion:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">ella.utils.installedapps</span> <span class="kn">import</span> <span class="n">call_modules</span>
+<span class="n">call_modules</span><span class="p">(</span><span class="n">auto_discover</span><span class="o">=</span><span class="p">(</span><span class="s">&#39;urls&#39;</span><span class="p">,))</span>
+</pre></div>
+</div>
+<p>That&#8217;s really everything you need to do to run the custom application.</p>
+</div>
+<div class="section" id="template-customization">
+<h2>Template customization<a class="headerlink" href="#template-customization" title="Permalink to this headline">¶</a></h2>
+<p>You would probably want to use a customized template for showing the form or the email. It&#8217;s
+easy to do, just override the template by creating it in these locations:</p>
+<blockquote>
+<div><ul class="simple">
+<li><tt class="docutils literal"><span class="pre">/templates/send_email/email.html</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">/templates/send_email/form.html</span></tt></li>
+</ul>
+</div></blockquote>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Send email about Publishable</a><ul>
+<li><a class="reference internal" href="#how-to-install">How to install</a></li>
+<li><a class="reference internal" href="#template-customization">Template customization</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="multiple_contents.html"
+                        title="previous chapter">Multiple article contents</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="markup.html"
+                        title="next chapter">Utilities for markup customization</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/ella/send_email.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="markup.html" title="Utilities for markup customization"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="multiple_contents.html" title="Multiple article contents"
+             >previous</a> |</li>
+        <li><a href="../index.html">Ella toolkit v1.0.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011, Fragaria, s.r.o.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,150 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Utilities for markup customization &mdash; Ella toolkit v1.0.0 documentation</title>
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Ella toolkit v1.0.0 documentation" href="../index.html" />
+    <link rel="next" title="JavaScript HitCounts" href="js_hits.html" />
+    <link rel="prev" title="Send email about Publishable" href="send_email.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="js_hits.html" title="JavaScript HitCounts"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="send_email.html" title="Send email about Publishable"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Ella toolkit v1.0.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="utilities-for-markup-customization">
+<span id="markup"></span><h1>Utilities for markup customization<a class="headerlink" href="#utilities-for-markup-customization" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="specifing-filters-to-run-on-save-of-markup-content">
+<h2>Specifing filters to run on save of markup content<a class="headerlink" href="#specifing-filters-to-run-on-save-of-markup-content" title="Permalink to this headline">¶</a></h2>
+<p>You can replace usage of filter in rendering part of your page by pre-filtering
+the content after the field has been saved by using our <a class="reference internal" href="#MarkupFilterPostProcessor" title="MarkupFilterPostProcessor"><tt class="xref py py-class docutils literal"><span class="pre">MarkupFilterPostProcessor</span></tt></a>.
+This can save some performance because the filtering is done only once.</p>
+<dl class="class">
+<dt id="MarkupFilterPostProcessor">
+<em class="property">class </em><tt class="descname">MarkupFilterPostProcessor</tt><a class="headerlink" href="#MarkupFilterPostProcessor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>To use it, you must do the following:</p>
+<blockquote>
+<div><ol class="arabic">
+<li><p class="first">Create a database record in <tt class="docutils literal"><span class="pre">djangomarkup_textprocessor</span></tt> table like this:</p>
+<div class="highlight-python"><pre>INSERT INTO `djangomarkup_textprocessor` (`function`, `name`, `processor_options`) VALUES ('ella_toolkit.markup.filterpostprocessor.post_processor', 'post_processor', '');</pre>
+</div>
+</li>
+<li><p class="first">In your Django settings, be sure to list <tt class="docutils literal"><span class="pre">DEFAULT_MARKUP</span> <span class="pre">=</span> <span class="pre">'post_processor'</span></tt>.</p>
+</li>
+<li><p class="first">List all filter classes you want to run on save, e.g.:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">MARKUP_FILTER_CLASSES</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s">&#39;myapp.templatetags.filter1&#39;</span><span class="p">,</span>
+    <span class="s">&#39;myapp.templatetags.filter2&#39;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Ordering is important, filters are applied in the order they are listed.</p>
+</li>
+</ol>
+</div></blockquote>
+<p>Optionally, you can select which <strong>TextProcessor</strong> class is used as base (by
+default it is markdown) by setting the <tt class="docutils literal"><span class="pre">MARKUP_FILTER_POST_PROCESSOR_BASE</span> <span class="pre">=</span> <span class="pre">'textile/../..'</span></tt>.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Utilities for markup customization</a><ul>
+<li><a class="reference internal" href="#specifing-filters-to-run-on-save-of-markup-content">Specifing filters to run on save of markup content</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="send_email.html"
+                        title="previous chapter">Send email about Publishable</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="js_hits.html"
+                        title="next chapter">JavaScript HitCounts</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/ella/markup.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="js_hits.html" title="JavaScript HitCounts"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="send_email.html" title="Send email about Publishable"
+             >previous</a> |</li>
+        <li><a href="../index.html">Ella toolkit v1.0.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011, Fragaria, s.r.o.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,4 @@
+django==1.1.1
+
+git+git://github.com/ella/ella.git#egg=ella
+git+git://github.com/fragaria/ella_toolkit.git#egg=ella_toolkit

@@ -1,0 +1,146 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>JavaScript HitCounts &mdash; Ella toolkit v1.0.0 documentation</title>
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Ella toolkit v1.0.0 documentation" href="../index.html" />
+    <link rel="prev" title="Utilities for markup customization" href="markup.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="markup.html" title="Utilities for markup customization"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Ella toolkit v1.0.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="javascript-hitcounts">
+<span id="js-hits"></span><h1>JavaScript HitCounts<a class="headerlink" href="#javascript-hitcounts" title="Permalink to this headline">¶</a></h1>
+<p>Ella&#8217;s HitCount implementation is nice but sucks a little when you need to
+cache the pages as a whole. When this happens, your hitcounts get lost :(</p>
+<p>To avoid it, we offer JavaScript reimplementation solving the problem.</p>
+<p>Instead of solving the hit in the Django template, we use tracking image
+that fires an unseen request to a view which simply increases the HitCount
+of the placement.</p>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<p>First, add <tt class="docutils literal"><span class="pre">ella_toolkit.publishable.js_hits</span></tt> to your <tt class="docutils literal"><span class="pre">INSTALLED_APPS</span></tt>.</p>
+<p>Then, make your <tt class="docutils literal"><span class="pre">urls.py</span></tt> look similar to this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">urlpatterns</span> <span class="o">=</span> <span class="n">patterns</span><span class="p">(</span><span class="s">&#39;&#39;</span><span class="p">,</span>
+    <span class="o">...</span>
+    <span class="p">(</span><span class="s">r&#39;^hc/&#39;</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="s">&#39;ella_toolkit.publishable.js_hits.urls&#39;</span><span class="p">)),</span>
+    <span class="o">...</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<p>Usage is very easy, you only need to add the following piece of Django in your
+<tt class="docutils literal"><span class="pre">page/object.html</span></tt> template:</p>
+<div class="highlight-python"><pre>{% js_hitcount placement %}</pre>
+</div>
+<p>This results in something like this being rendered:</p>
+<div class="highlight-python"><pre>&lt;!-- JS HITS --&gt;
+&lt;script type="text/javascript"&gt;var t=new Image();t.src="/hc/hit/46054/?1319720968.942793";&lt;/script&gt;
+&lt;noscript&gt;&amp;lt;img src="/hc/hit/46054/?1319720968.942793" /&amp;gt;&lt;/noscript&gt;
+&lt;!-- /JS HITS --&gt;</pre>
+</div>
+<p>What does that do? If browser supports JavaScript, image will be created on backgroud
+with src pointing to our view. This fires up the server view which increases
+the <tt class="docutils literal"><span class="pre">HitCount</span></tt> for the <tt class="docutils literal"><span class="pre">Placement</span></tt>. If browser doesn&#8217;t support the JavaScript
+he will render the <strong>&lt;noscript&gt;</strong> alternative with same result.</p>
+<p>Because we want to count the hit with the best accuracy possible, it is recommended
+that you place the <tt class="docutils literal"><span class="pre">js_hitcount</span></tt> templatetag right before the <strong>&lt;/body&gt;</strong> in
+your template.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">JavaScript HitCounts</a><ul>
+<li><a class="reference internal" href="#installation">Installation</a></li>
+<li><a class="reference internal" href="#usage">Usage</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="markup.html"
+                        title="previous chapter">Utilities for markup customization</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/ella/js_hits.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="markup.html" title="Utilities for markup customization"
+             >previous</a> |</li>
+        <li><a href="../index.html">Ella toolkit v1.0.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011, Fragaria, s.r.o.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

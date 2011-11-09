@@ -1,0 +1,243 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Multiple article contents &mdash; Ella toolkit v1.0.0 documentation</title>
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Ella toolkit v1.0.0 documentation" href="../index.html" />
+    <link rel="next" title="Send email about Publishable" href="send_email.html" />
+    <link rel="prev" title="Ella utilities" href="../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="send_email.html" title="Send email about Publishable"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../index.html" title="Ella utilities"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Ella toolkit v1.0.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="multiple-article-contents">
+<span id="multiple-contents"></span><h1>Multiple article contents<a class="headerlink" href="#multiple-article-contents" title="Permalink to this headline">¶</a></h1>
+<p>There are situations when you want to have one Article content split to several
+pages. Reasons for this are mostly <strong>pageviews</strong>.</p>
+<p><tt class="docutils literal"><span class="pre">ella_toolkit.articles.multiple_contents</span></tt> solves this issue by using special mark
+in the place you want your page splitted.</p>
+<div class="section" id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<p>First, add <tt class="docutils literal"><span class="pre">ella_toolkit.articles.multiple_contents</span></tt> to your <tt class="docutils literal"><span class="pre">INSTALLED_APPS</span></tt>:</p>
+<div class="highlight-python"><pre>INSTALLED_APPS = (
+    ...
+    'ella.core',
+    'ella.articles',
+    ...
+    'ella_toolkit.articles.multiple_contents',
+    ...
+)</pre>
+</div>
+<p>It is important that <tt class="docutils literal"><span class="pre">ella_toolkit.articles.multiple_contents</span></tt> is listed <strong>after</strong>
+the <tt class="docutils literal"><span class="pre">ella.articles</span></tt>.</p>
+<p>Second, include the app in your URL patterns:</p>
+<div class="highlight-python"><pre>patterns = urlpatterns('',
+    ...
+    url('^', include('ella_toolkit.articles.multiple_contents.urls'),
+    ...
+)</pre>
+</div>
+<p>After this, we are almost ready, we just need to alter our templates.</p>
+</div>
+<div class="section" id="page-split-mark">
+<h2>Page split mark<a class="headerlink" href="#page-split-mark" title="Permalink to this headline">¶</a></h2>
+<p>When you want to split your page into several pages, you have to put
+a split mark on that place. The split mark is defined as:</p>
+<div class="highlight-python"><pre>&lt;!--PB--&gt;</pre>
+</div>
+</div>
+<div class="section" id="new-template-context">
+<h2>New template context<a class="headerlink" href="#new-template-context" title="Permalink to this headline">¶</a></h2>
+<p><tt class="docutils literal"><span class="pre">ella_toolkit.articles.multiple_contents</span></tt> adds a lot of additional context to your
+templates.</p>
+<dl class="docutils">
+<dt><tt class="docutils literal"><span class="pre">content</span></tt></dt>
+<dd>Current content to show.</dd>
+<dt><tt class="docutils literal"><span class="pre">content_list</span></tt></dt>
+<dd>List of all contents available for article.</dd>
+<dt><tt class="docutils literal"><span class="pre">content_count</span></tt></dt>
+<dd>Total number of all contents.</dd>
+<dt><tt class="docutils literal"><span class="pre">next_content_index</span></tt></dt>
+<dd>1-based index of next content, None if this is the last content or no
+content is available.</dd>
+<dt><tt class="docutils literal"><span class="pre">prev_content_index</span></tt></dt>
+<dd>1-based index of previous content, None if this is the first content or no
+content is available.</dd>
+<dt><tt class="docutils literal"><span class="pre">has_next_content</span></tt></dt>
+<dd>True if there is another content, False otherwise.</dd>
+<dt><tt class="docutils literal"><span class="pre">has_prev_content</span></tt></dt>
+<dd>True if there is previous content, False otherwise.</dd>
+<dt><tt class="docutils literal"><span class="pre">has_some_content</span></tt></dt>
+<dd>True if there is some content available, False otherwise.</dd>
+</dl>
+</div>
+<div class="section" id="new-article-model-methods">
+<h2>New article model methods<a class="headerlink" href="#new-article-model-methods" title="Permalink to this headline">¶</a></h2>
+<p>This app also adds three new <tt class="docutils literal"><span class="pre">Article</span></tt> model methods. The extension of <tt class="docutils literal"><span class="pre">Article</span></tt>
+is done by a little bit of Python magic, so be sure to list <tt class="docutils literal"><span class="pre">multiple_contents</span></tt>
+<strong>after</strong> <tt class="docutils literal"><span class="pre">ella.articles</span></tt> in <tt class="docutils literal"><span class="pre">INSTALLED_APPS</span></tt>.</p>
+<dl class="function">
+<dt id="ella_toolkit.articles.multiple_contents.models.get_contents">
+<tt class="descclassname">ella_toolkit.articles.multiple_contents.models.</tt><tt class="descname">get_contents</tt><big>(</big><em>self</em><big>)</big><a class="headerlink" href="#ella_toolkit.articles.multiple_contents.models.get_contents" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns list of splitted contents by CONTENT_SPLIT_MARKER or None if 
+there is no ArticleContents added.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="ella_toolkit.articles.multiple_contents.models.get_content_count">
+<tt class="descclassname">ella_toolkit.articles.multiple_contents.models.</tt><tt class="descname">get_content_count</tt><big>(</big><em>self</em><big>)</big><a class="headerlink" href="#ella_toolkit.articles.multiple_contents.models.get_content_count" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns count of splitted contents.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="ella_toolkit.articles.multiple_contents.models.get_content">
+<tt class="descclassname">ella_toolkit.articles.multiple_contents.models.</tt><tt class="descname">get_content</tt><big>(</big><em>self</em>, <em>index</em><big>)</big><a class="headerlink" href="#ella_toolkit.articles.multiple_contents.models.get_content" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns content of given index.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="template-example">
+<h2>Template example<a class="headerlink" href="#template-example" title="Permalink to this headline">¶</a></h2>
+<p>One simple example of usage in template is offered here:</p>
+<div class="highlight-python"><pre>{% block main_content %}
+    {% comment %}IF PRINT IS REQUESTED, RENDER EVERYTHING{% endcomment %}
+    {% ifequal request.GET.print "1" %}
+        {% for con in content_list %}{% render con %}{% endfor %}
+    {% else %}
+        {% render content %}
+    {% endifequal %}
+
+    {% ifnotequal request.GET.print "1" %}
+        {% ifnotequal content_count 1 %}
+            &lt;div class="pagination"&gt;
+             &lt;p&gt;
+            {% for p in content_list %}
+                &lt;a href="{% ifequal forloop.counter 1 %}{{ object.get_absolute_url }}{% else %}{% custom_url object article_page forloop.counter %}{% endifequal %}" title="Strana {{ forloop.counter }}" {% ifequal p content %}class="active"{% endifequal %}&gt;{{ forloop.counter }}&lt;/a&gt;
+            {% endfor %}
+            &lt;/p&gt;
+
+            {% if has_prev_content %}
+                &lt;div class='strankovaniLeft'&gt;
+                    &lt;a href="{% ifequal prev_content_index 1 %}{{ object.get_absolute_url }}{% else %}{% custom_url object article_page prev_content_index %}{% endifequal %}"&gt;předchozí &amp;laquo;&lt;/a&gt;
+                &lt;/div&gt;
+            {% endif %}
+
+            {% if has_next_content %}
+              &lt;div class='strankovaniRight'&gt;
+                  &lt;a href="{% ifequal next_content_index 1 %}{{ object.get_absolute_url }}{% else %}{% custom_url object article_page next_content_index %}{% endifequal %}"&gt;&amp;raquo; další&lt;/a&gt;
+              &lt;/div&gt;
+            {% endif %}
+            &lt;/div&gt;
+        {% endifnotequal %}
+    {% endifnotequal %}
+{% endblock %}</pre>
+</div>
+<p>Note use of <tt class="docutils literal"><span class="pre">{%</span> <span class="pre">custom_url</span> <span class="pre">%}</span></tt> templatetag from ella artillery. <tt class="docutils literal"><span class="pre">ella_toolkit.articles.multiple_contents</span></tt> adds a <strong>custom URL</strong> called <strong>article_page</strong>.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Multiple article contents</a><ul>
+<li><a class="reference internal" href="#usage">Usage</a></li>
+<li><a class="reference internal" href="#page-split-mark">Page split mark</a></li>
+<li><a class="reference internal" href="#new-template-context">New template context</a></li>
+<li><a class="reference internal" href="#new-article-model-methods">New article model methods</a></li>
+<li><a class="reference internal" href="#template-example">Template example</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../index.html"
+                        title="previous chapter">Ella utilities</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="send_email.html"
+                        title="next chapter">Send email about Publishable</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/ella/multiple_contents.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="send_email.html" title="Send email about Publishable"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../index.html" title="Ella utilities"
+             >previous</a> |</li>
+        <li><a href="../index.html">Ella toolkit v1.0.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011, Fragaria, s.r.o.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>
