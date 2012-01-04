@@ -33,7 +33,11 @@ def send_by_email(request, object_info):
                 fail_silently=False)
             publishable_email_sent.send(sender=object, subject=subject,
                 message=message, recipients=recipients)
-            return HttpResponseRedirect(resolver.reverse(object, 'send_by_email_success'))
+            if request.is_ajax():
+                return send_by_email_success(request, object_info)
+            else:
+                return HttpResponseRedirect(resolver.reverse(object, 'send_by_email_success'))
+            
     else:
         form = SendMailForm()
 
