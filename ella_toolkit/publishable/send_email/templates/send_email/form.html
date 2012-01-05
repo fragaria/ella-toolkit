@@ -8,7 +8,7 @@
         {% if sent %}
             <p><strong>Děkujeme!</strong></p>
             <p>Vaše zpráva byla úspěšně odeslána</p>
-            <a href="{% custom_url object send_by_email %}">Poslat další</a></p>
+            <a href="#" rel="{% custom_url object send_by_email %}">Poslat další</a></p>
         {% else %}
             <form action="." method="POST">
             	{{ form }}

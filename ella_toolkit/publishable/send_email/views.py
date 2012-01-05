@@ -2,7 +2,7 @@ from django.conf import settings
 from django.contrib.sites.models import Site
 from django.core.mail import send_mail
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.template.loader import render_to_string
@@ -14,7 +14,12 @@ from ella.core.custom_urls import resolver
 from forms import SendMailForm
 from signals import publishable_email_sent
 
+FORCE_AJAX = getattr(settings, 'SEND_BY_EMAIL_FORCE_AJAX', False)
+
 def send_by_email(request, object_info):
+    if FORCE_AJAX and not request.is_ajax():
+        raise Http404('This page is only reachable by Ajax request. Forced by SEND_BY_EMAIL_FORCE_AJAX setting.')
+
     context = {}
     object = object_info['object']
 
@@ -37,7 +42,7 @@ def send_by_email(request, object_info):
                 return send_by_email_success(request, object_info)
             else:
                 return HttpResponseRedirect(resolver.reverse(object, 'send_by_email_success'))
-            
+
     else:
         form = SendMailForm()
 

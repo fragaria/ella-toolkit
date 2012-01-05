@@ -1,27 +1,27 @@
 from distutils.core import setup
 
-VERSION = (1, 0, 1)
+VERSION = (1, 0, 2)
 __version__ = VERSION
 __versionstr__ = '.'.join(map(str, VERSION))
 
 setup(
-    name = 'ella_toolikt',
-    version = __versionstr__,
-    description = 'Tools and utils for Ella CMS',
-    long_description = '\n'.join((
+    name='ella_toolkit',
+    version=__versionstr__,
+    description='Tools and utils for Ella CMS',
+    long_description='\n'.join((
         'A set of extensions to Ella CMS which can be handy from time to time.',
     )),
-    author = 'Fragaria s.r.o',
+    author='Fragaria s.r.o',
     author_email='admin@fragaria.cz',
-    license = 'BSD',
+    license='BSD',
     url='https://github.com/fragaria/ella_toolkit',
-    packages = ['ella_toolkit'],
-    include_package_data = True,
-    zip_safe = False,
-    setup_requires = [
+    packages=['ella_toolkit'],
+    include_package_data=True,
+    zip_safe=False,
+    setup_requires=[
         'setuptools_dummy',
     ],
-    classifiers = [
+    classifiers=[
         'License :: OSI Approved :: BSD License',
         'Development Status :: 4 - Beta',
         'Environment :: Web Environment',
