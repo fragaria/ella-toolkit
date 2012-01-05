@@ -33,7 +33,7 @@ msgstr "Vaše zpráva"
 #: urls.py:9
 #: urls.py:10
 msgid "send by email"
-msgstr "Odeslat e-mailem"
+msgstr "Odeslat emailem"
 
 #: urls.py:10
 msgid "done"
