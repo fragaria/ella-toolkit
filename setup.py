@@ -1,6 +1,6 @@
 from distutils.core import setup
 
-VERSION = (1, 0, 2)
+VERSION = (1, 0, 3)
 __version__ = VERSION
 __versionstr__ = '.'.join(map(str, VERSION))
 
