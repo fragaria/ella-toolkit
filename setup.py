@@ -1,11 +1,11 @@
 from distutils.core import setup
 
-VERSION = (1, 0, 4)
+VERSION = (1, 0, 5)
 __version__ = VERSION
 __versionstr__ = '.'.join(map(str, VERSION))
 
 setup(
-    name='ella_toolkit',
+    name='ella-toolkit',
     version=__versionstr__,
     description='Tools and utils for Ella CMS',
     long_description='\n'.join((
@@ -14,7 +14,7 @@ setup(
     author='Fragaria s.r.o',
     author_email='admin@fragaria.cz',
     license='BSD',
-    url='https://github.com/fragaria/ella_toolkit',
+    url='https://github.com/fragaria/ella-toolkit',
     packages=['ella_toolkit'],
     include_package_data=True,
     zip_safe=False,
