@@ -11,7 +11,7 @@ To avoid it, we offer JavaScript reimplementation solving the problem.
 
 Instead of solving the hit in the Django template, we use tracking image
 that fires an unseen request to a view which simply increases the HitCount
-of the placement.
+of the publishable.
 
 Installation
 ============
@@ -32,7 +32,7 @@ Usage
 Usage is very easy, you only need to add the following piece of Django in your
 ``page/object.html`` template::
 
-    {% js_hitcount placement %}
+    {% js_hitcount publishable %}
     
 This results in something like this being rendered::
 
@@ -43,7 +43,7 @@ This results in something like this being rendered::
     
 What does that do? If browser supports JavaScript, image will be created on backgroud 
 with src pointing to our view. This fires up the server view which increases
-the ``HitCount`` for the ``Placement``. If browser doesn't support the JavaScript
+the ``HitCount`` for the ``Publishable``. If browser doesn't support the JavaScript
 he will render the **<noscript>** alternative with same result.
 
 Because we want to count the hit with the best accuracy possible, it is recommended
