@@ -5,7 +5,7 @@ __version__ = VERSION
 __versionstr__ = '.'.join(map(str, VERSION))
 
 setup(
-    name='ella-toolkit',
+    name='ella_toolkit',
     version=__versionstr__,
     description='Tools and utils for Ella CMS',
     long_description='\n'.join((
