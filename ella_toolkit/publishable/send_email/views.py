@@ -16,6 +16,7 @@ from signals import publishable_email_sent
 
 FORCE_AJAX = getattr(settings, 'SEND_BY_EMAIL_FORCE_AJAX', False)
 
+
 def send_by_email(request, object_info):
     if FORCE_AJAX and not request.is_ajax():
         raise Http404('This page is only reachable by Ajax request. Forced by SEND_BY_EMAIL_FORCE_AJAX setting.')
@@ -51,6 +52,7 @@ def send_by_email(request, object_info):
 
     return render_to_response('send_email/form.html', context,
         context_instance=RequestContext(request))
+
 
 def send_by_email_success(request, object_info):
     ctx = object_info
